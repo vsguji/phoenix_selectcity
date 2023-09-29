@@ -1,6 +1,6 @@
 name: phoenix_selectcity
 description: phoenix 将做为企业级基础组件:Selectcity,提供项目支持。
-version: 1.0.0
+version: 1.0.1
 homepage: 'https://github.com/vsguji/phoenix_selectcity.git'
 
 environment:
