@@ -8,6 +8,7 @@ import 'package:phoenix_navbar/phoenix_navbar.dart';
 import 'package:phoenix_sugsearch/phoenix_sugsearch.dart';
 import 'az_common.dart';
 import 'az_listview.dart';
+import 'extension/selectcity_assets.dart';
 import 'select_city_model.dart';
 
 /// 简述：[BrnSingleSelectCityPage]是用于城市选择的单选页面，
@@ -367,7 +368,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
   Widget _noDataWidget() {
     return Container(
       child: BrnAbnormalStateWidget(
-        img: PhoenixTools.getAssetImage(BaseAsset.noData),
+        img: PhoenixTools.getAssetImage(SelectCityAssets.noData),
         title: BrnIntl.of(context).localizedResource.noSearchData,
       ),
     );
