@@ -11,9 +11,9 @@ import 'az_listview.dart';
 import 'extension/selectcity_assets.dart';
 import 'select_city_model.dart';
 
-/// 简述：[BrnSingleSelectCityPage]是用于城市选择的单选页面，
+/// 简述：[SingleSelectCityPage]是用于城市选择的单选页面，
 /// 功能：多可以自定制导航栏文案，搜索文案信息，定位信息，右侧可快速滑动查看城市
-class BrnSingleSelectCityPage extends StatefulWidget {
+class SingleSelectCityPage extends StatefulWidget {
   /// 页面标题，默认空
   final String? appBarTitle;
 
@@ -27,18 +27,18 @@ class BrnSingleSelectCityPage extends StatefulWidget {
   final String locationText;
 
   /// 城市列表
-  final List<BrnSelectCityModel>? cityList;
+  final List<SelectCityModel>? cityList;
 
   /// 热门推荐城市列表
-  final List<BrnSelectCityModel> hotCityList;
+  final List<SelectCityModel> hotCityList;
 
   /// 单选项 点击的回调
-  final ValueChanged<BrnSelectCityModel>? onValueChanged;
+  final ValueChanged<SelectCityModel>? onValueChanged;
 
   /// 空页面中间展位图展示
   final Image? emptyImage;
 
-  BrnSingleSelectCityPage({
+  SingleSelectCityPage({
     this.appBarTitle = '',
     this.hotCityTitle = '',
     required this.hotCityList,
@@ -55,8 +55,8 @@ class BrnSingleSelectCityPage extends StatefulWidget {
   }
 }
 
-class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
-  List<BrnSelectCityModel> _cityList = [];
+class _BrnSingleSelectCityPageState extends State<SingleSelectCityPage> {
+  List<SelectCityModel> _cityList = [];
 
   ///搜索框的高度
   int _suspensionHeight = 40;
@@ -87,13 +87,12 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
     if (widget.cityList == null || widget.cityList!.isEmpty) {
       //加载城市列表
       rootBundle
-          .loadString(
-              'packages/${BaseStrings.flutterPackageName}/assets/json/china.json')
+          .loadString('packages/phoenix_selectcity/assets/json/china.json')
           .then((value) {
         Map countyMap = json.decode(value);
         List list = countyMap['china'];
         list.forEach((value) {
-          _cityList.add(BrnSelectCityModel(name: value['name']));
+          _cityList.add(SelectCityModel(name: value['name']));
         });
         _handleList(_cityList);
         setState(() {});
@@ -105,7 +104,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
     }
   }
 
-  void _handleList(List<BrnSelectCityModel>? list) {
+  void _handleList(List<SelectCityModel>? list) {
     if (list == null || list.isEmpty) return;
     for (int i = 0, length = list.length; i < length; i++) {
       String pinyin = PinyinHelper.getPinyinE(list[i].name);
@@ -130,7 +129,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
   }
 
   Widget _buildHeader() {
-    List<BrnSelectCityModel> hotCityList = widget.hotCityList;
+    List<SelectCityModel> hotCityList = widget.hotCityList;
     double width = (MediaQuery.of(context).size.width - 70) / 3;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -209,7 +208,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
     );
   }
 
-  Widget _buildListItem(BrnSelectCityModel model) {
+  Widget _buildListItem(SelectCityModel model) {
     String susTag = model.getSuspensionTag();
     return Column(
       children: <Widget>[
@@ -321,7 +320,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
         child: AzListView(
           data: _cityList,
           itemBuilder: (context, model) =>
-              _buildListItem(model as BrnSelectCityModel),
+              _buildListItem(model as SelectCityModel),
           suspensionWidget: _buildSusWidget(_suspensionTag),
           isUseRealIndex: true,
           itemHeight: _itemHeight,
@@ -350,7 +349,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
 
   ///城市搜索结果页
   Widget _buildSearchResultList(String searchText) {
-    List<BrnSelectCityModel> cList = _searchCityList(searchText);
+    List<SelectCityModel> cList = _searchCityList(searchText);
     return (cList.isEmpty)
         ? _noDataWidget()
         : Expanded(
@@ -367,7 +366,7 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
   ///没有数据的占位图
   Widget _noDataWidget() {
     return Container(
-      child: BrnAbnormalStateWidget(
+      child: AbnormalStateWidget(
         img: PhoenixTools.getAssetImage(SelectCityAssets.noData),
         title: BrnIntl.of(context).localizedResource.noSearchData,
       ),
@@ -375,10 +374,10 @@ class _BrnSingleSelectCityPageState extends State<BrnSingleSelectCityPage> {
   }
 
   ///获取城市搜索结果
-  List<BrnSelectCityModel> _searchCityList(String searchText) {
-    List<BrnSelectCityModel> cList = [];
+  List<SelectCityModel> _searchCityList(String searchText) {
+    List<SelectCityModel> cList = [];
     for (int index = 0; index < _cityList.length; index++) {
-      BrnSelectCityModel cInfo = _cityList[index];
+      SelectCityModel cInfo = _cityList[index];
       if (cInfo.name.contains(searchText) ||
           cInfo.tag.contains(searchText) ||
           cInfo.tag.contains(searchText.toUpperCase())) {

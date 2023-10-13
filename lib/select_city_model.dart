@@ -1,10 +1,7 @@
-
-
 import 'az_common.dart';
 
 /// 城市选择数据类
-class BrnSelectCityModel extends ISuspensionBean {
-
+class SelectCityModel extends ISuspensionBean {
   /// 城市名称
   String name = "";
 
@@ -20,7 +17,7 @@ class BrnSelectCityModel extends ISuspensionBean {
   /// 城市编码
   String cityCode = "";
 
-  BrnSelectCityModel({
+  SelectCityModel({
     required this.name,
     this.tagIndex = "",
     this.namePinyin,
@@ -28,7 +25,7 @@ class BrnSelectCityModel extends ISuspensionBean {
     this.cityCode = "",
   });
 
-  BrnSelectCityModel.fromJson(Map<String, dynamic> json);
+  SelectCityModel.fromJson(Map<String, dynamic> json);
 
   Map<String, dynamic> toJson() => {
         'name': name,

@@ -13,7 +13,7 @@ dependencies:
   phoenix_base: ^1.0.6
   phoenix_sugsearch: ^1.0.1
   phoenix_navbar: ^1.0.0
-  phoenix_empty: ^1.0.1
+  phoenix_empty: ^1.0.3
   phoenix_loading: ^1.0.1
   lpinyin: ^2.0.3
   
